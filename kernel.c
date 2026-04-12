@@ -1,8 +1,26 @@
+#include "kernel.h"
+
+
+
+
+
 typedef unsigned char uint8_t;
 typedef unsigned int uint32_t;
 typedef uint32_t size_t;
 
 extern char __bss[],__bss_end[],__stack_top[];
+
+
+
+struct sbiret sbi_call(long arg0,long arg1,long arg2,long arg3,long arg4,long arg5,long fid,long eid){
+    register long a0 __asm__("a0")=arg0;
+    register long a0 __asm__("a5")=arg5;
+    register long a1 __asm__("a1")=arg1;
+    register long a2 __asm__("a2")=arg2;
+    register long a3 __asm__("a3")=arg3;
+    register long a4 __asm__("a4")=arg4;    
+
+}
 
 
 void *memset(void *buf,char c,size_t n){

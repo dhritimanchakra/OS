@@ -1,0 +1,83 @@
+     VMA      LMA     Size Align Out     In      Symbol
+       0        0 80200000     1 . = 0x80200000
+80200000 80200000       50     4 .text
+80200000 80200000       42     4         /tmp/kernel-c10d57.o:(.text)
+80200000 80200000        0     1                 
+80200000 80200000        0     1                 
+80200000 80200000        0     1                 
+80200000 80200000        0     1                 
+80200000 80200000       14     1                 memset
+80200002 80200002        0     1                 
+80200004 80200004        0     1                 
+80200006 80200006        0     1                 
+8020000a 8020000a        0     1                 
+8020000e 8020000e        0     1                 
+80200010 80200010        0     1                 
+80200012 80200012        0     1                 
+80200014 80200014        0     1                 
+80200014 80200014        0     1                 
+80200014 80200014        0     1                 
+80200014 80200014        0     1                 
+80200014 80200014        0     1                 
+80200014 80200014        0     1                 
+80200014 80200014       2e     1                 kernel_main
+8020002a 8020002a        0     1                 
+80200030 80200030        0     1                 
+80200034 80200034        0     1                 
+80200036 80200036        0     1                 
+8020003a 8020003a        0     1                 
+8020003c 8020003c        0     1                 
+80200040 80200040        0     1                 
+80200040 80200040        0     1                 
+80200042 80200042        0     1                 
+80200042 80200042        0     1                 
+80200042 80200042        e     2         /tmp/kernel-c10d57.o:(.text.book)
+80200042 80200042        0     1                 
+80200042 80200042        0     1                 
+80200042 80200042        0     1                 
+80200042 80200042        0     1                 
+80200042 80200042        e     1                 boot
+80200050 80200050        0     1                 
+80200050 80200050        0     1                 
+80200050 80200050        0     4 .bss
+80200050 80200050        0     1         __bss = .
+80200050 80200050        0     1         __bss_end = .
+80200050 80200050        0     1 . = ALIGN ( 4 )
+80200050 80200050    20000     1 . += 128 * 1024
+80220050 80220050        0     1 __stack_top = .
+       0        0       65     1 .debug_loclists
+       0        0       65     1         /tmp/kernel-c10d57.o:(.debug_loclists)
+       c        c        0     1                 
+       0        0       e1     1 .debug_abbrev
+       0        0       e1     1         /tmp/kernel-c10d57.o:(.debug_abbrev)
+       0        0       dd     1 .debug_info
+       0        0       dd     1         /tmp/kernel-c10d57.o:(.debug_info)
+       0        0       17     1 .debug_rnglists
+       0        0       17     1         /tmp/kernel-c10d57.o:(.debug_rnglists)
+       c        c        0     1                 
+       0        0       48     1 .debug_str_offsets
+       0        0       48     1         /tmp/kernel-c10d57.o:(.debug_str_offsets)
+       8        8        0     1                 
+       0        0       9d     1 .debug_str
+       0        0       9d     1         <internal>:(.debug_str)
+       0        0       14     1 .debug_addr
+       0        0       14     1         /tmp/kernel-c10d57.o:(.debug_addr)
+       8        8        0     1                 
+       0        0       42     1 .comment
+       0        0       42     1         <internal>:(.comment)
+       0        0       2b     1 .riscv.attributes
+       0        0       2b     1         /tmp/kernel-c10d57.o:(.riscv.attributes)
+       0        0       44     4 .debug_frame
+       0        0       44     4         /tmp/kernel-c10d57.o:(.debug_frame)
+       0        0        0     1                 
+       0        0       f4     1 .debug_line
+       0        0       f4     1         /tmp/kernel-c10d57.o:(.debug_line)
+       0        0        0     1                 .Lline_table_start0
+       0        0       1c     1 .debug_line_str
+       0        0       1c     1         <internal>:(.debug_line_str)
+       0        0      3f0     4 .symtab
+       0        0      3f0     4         <internal>:(.symtab)
+       0        0       ce     1 .shstrtab
+       0        0       ce     1         <internal>:(.shstrtab)
+       0        0       52     1 .strtab
+       0        0       52     1         <internal>:(.strtab)

@@ -1,5 +1,11 @@
 #pragma once
 
+#define STAP_SV32(1u<<32)
+#define PAGE_V (1<<0)
+#define PAGE_R (1<<1)
+#define PAGE_W (1<<2)
+#define PAGE_X (1<<3)
+#define PAGE_U (1<<4)
 #include "common.h"
 
 struct sbiret{

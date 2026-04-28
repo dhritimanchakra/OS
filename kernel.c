@@ -167,6 +167,28 @@ void kernel_entry(void) {
     );
 }
 
+
+void map_page(uint32_t *table1,uint32_t vaddr,paddr_t paddr,uint32_t flags){
+    if(!is_aligned(vaddr,PAGE_SIZE)){
+        PANIC("virtual address not aligned");
+    }
+    if(!is_aligned(paddr,PAGE_SIZE)){
+        PANIC("physical address not aligned");
+    }
+
+    uint32_t vpn1=(vaddr>>22) & 0x3ff;
+
+    if((table1[vpn1] & PAGE_V)==00){
+        uint32_t pt_paddr=alloc_pages(1);
+        table1[vpn1]=((pt_paddr/PAGE_SIZE)<<10)|PAGE_V;
+
+    }
+    uint32_t vpn0=(vaddr>>12) & 0x3ff;
+    uint32_t *table =(uint32_t *)((table1[vpn1]>>10))*PAGE_SIZE;
+    table0[vpn0]=((paddr/PAGE_SIZE)<<10)|flags|PAGE_V;
+    
+}
+
 void handle_trap(struct trap_frame *f) {
     (void)f;
     uint32_t scause  = READ_CSR(scause);

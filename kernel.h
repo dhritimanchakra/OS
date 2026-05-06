@@ -1,6 +1,8 @@
 #pragma once
 #include "common.h"
 
+#define SCAUSE_ECALL 8
+
 #define USER_BASE 0x10000000
 #define SATP_SV32   (1u << 31)
 #define PAGE_SIZE   4096

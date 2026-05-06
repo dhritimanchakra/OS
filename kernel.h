@@ -1,6 +1,7 @@
 #pragma once
 #include "common.h"
 
+#define USER_BASE 0x10000000
 #define SATP_SV32   (1u << 31)
 #define PAGE_SIZE   4096
 #define PAGE_V      (1 << 0)
@@ -9,6 +10,8 @@
 #define PAGE_X      (1 << 3)
 #define PAGE_U      (1 << 4)
 
+
+#define SSTATUS_SPIE (1 << 5)
 struct sbiret{
     long error;
     long value;

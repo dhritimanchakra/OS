@@ -1,7 +1,6 @@
 #include "user.h"
-
+#include "common.h"
 void main(void){
 
-    *((volatile int*) 0x80200000)=0x1234;
-    for(;;);
+    printf("Hello from the shell");
 }

@@ -2,7 +2,7 @@
        0        0 80200000     1 . = 0x80200000
 80200000        0        0     1 __kernel_base = .
 80200000 80200000      b46     4 .text
-80200000 80200000        e     2         /tmp/kernel-ec7755.o:(.text.boot)
+80200000 80200000        e     2         /tmp/kernel-843acd.o:(.text.boot)
 80200000 80200000        0     1                 
 80200000 80200000        0     1                 
 80200000 80200000        0     1                 
@@ -10,7 +10,7 @@
 80200000 80200000        e     1                 boot
 8020000e 8020000e        0     1                 
 8020000e 8020000e        0     1                 
-80200010 80200010      8ac     4         /tmp/kernel-ec7755.o:(.text)
+80200010 80200010      8ac     4         /tmp/kernel-843acd.o:(.text)
 80200010 80200010        0     1                 
 80200010 80200010        0     1                 
 80200010 80200010        0     1                 
@@ -396,7 +396,7 @@
 802008ba 802008ba        0     1                 
 802008bc 802008bc        0     1                 
 802008bc 802008bc        0     1                 
-802008bc 802008bc      28a     4         /tmp/common-0fe5df.o:(.text)
+802008bc 802008bc      28a     4         /tmp/common-3b304d.o:(.text)
 802008bc 802008bc        0     1                 
 802008bc 802008bc        0     1                 
 802008bc 802008bc        0     1                 
@@ -571,13 +571,13 @@
 80200cb8 80200cb8        0     1                 _binary_shell_bin_start
 80210fb8 80210fb8        0     1                 _binary_shell_bin_end
 80210fb8 80210fb8        4     4 .sdata
-80210fb8 80210fb8        4     4         /tmp/kernel-ec7755.o:(.sdata)
+80210fb8 80210fb8        4     4         /tmp/kernel-843acd.o:(.sdata)
 80210fb8 80210fb8        4     1                 alloc_pages.next_paddr
 80210fbc 80210fbc    10088     4 .bss
 80210fbc 80210fbc        0     1         __bss = .
-80210fbc 80210fbc    10080     4         /tmp/kernel-ec7755.o:(.bss)
+80210fbc 80210fbc    10080     4         /tmp/kernel-843acd.o:(.bss)
 80210fbc 80210fbc    10080     1                 procs
-8022103c 8022103c        8     4         /tmp/kernel-ec7755.o:(.sbss)
+8022103c 8022103c        8     4         /tmp/kernel-843acd.o:(.sbss)
 8022103c 8022103c        4     1                 idle_proc
 80221040 80221040        4     1                 current_proc
 80221044 80221044        0     1         __bss_end = .
@@ -589,46 +589,46 @@
 80242000 80242000  4000000     1 . += 64 * 1024 * 1024
 84242000 84242000        0     1 __free_ram_end = .
        0        0      703     1 .debug_loclists
-       0        0      4b9     1         /tmp/kernel-ec7755.o:(.debug_loclists)
+       0        0      4b9     1         /tmp/kernel-843acd.o:(.debug_loclists)
        c        c        0     1                 
-     4b9      4b9      24a     1         /tmp/common-0fe5df.o:(.debug_loclists)
+     4b9      4b9      24a     1         /tmp/common-3b304d.o:(.debug_loclists)
      4c5      4c5        0     1                 
        0        0      394     1 .debug_abbrev
-       0        0      28f     1         /tmp/kernel-ec7755.o:(.debug_abbrev)
-     28f      28f      105     1         /tmp/common-0fe5df.o:(.debug_abbrev)
+       0        0      28f     1         /tmp/kernel-843acd.o:(.debug_abbrev)
+     28f      28f      105     1         /tmp/common-3b304d.o:(.debug_abbrev)
        0        0      a81     1 .debug_info
-       0        0      860     1         /tmp/kernel-ec7755.o:(.debug_info)
-     860      860      221     1         /tmp/common-0fe5df.o:(.debug_info)
+       0        0      860     1         /tmp/kernel-843acd.o:(.debug_info)
+     860      860      221     1         /tmp/common-3b304d.o:(.debug_info)
        0        0       af     1 .debug_rnglists
-       0        0       94     1         /tmp/kernel-ec7755.o:(.debug_rnglists)
+       0        0       94     1         /tmp/kernel-843acd.o:(.debug_rnglists)
        c        c        0     1                 
-      94       94       1b     1         /tmp/common-0fe5df.o:(.debug_rnglists)
+      94       94       1b     1         /tmp/common-3b304d.o:(.debug_rnglists)
       a0       a0        0     1                 
        0        0      250     1 .debug_str_offsets
-       0        0      1bc     1         /tmp/kernel-ec7755.o:(.debug_str_offsets)
+       0        0      1bc     1         /tmp/kernel-843acd.o:(.debug_str_offsets)
        8        8        0     1                 
-     1bc      1bc       94     1         /tmp/common-0fe5df.o:(.debug_str_offsets)
+     1bc      1bc       94     1         /tmp/common-3b304d.o:(.debug_str_offsets)
      1c4      1c4        0     1                 
        0        0      344     1 .debug_str
        0        0      344     1         <internal>:(.debug_str)
        0        0      130     1 .debug_addr
-       0        0       d4     1         /tmp/kernel-ec7755.o:(.debug_addr)
+       0        0       d4     1         /tmp/kernel-843acd.o:(.debug_addr)
        8        8        0     1                 
-      d4       d4       5c     1         /tmp/common-0fe5df.o:(.debug_addr)
+      d4       d4       5c     1         /tmp/common-3b304d.o:(.debug_addr)
       dc       dc        0     1                 
        0        0       42     1 .comment
        0        0       42     1         <internal>:(.comment)
        0        0       2b     1 .riscv.attributes
-       0        0       2b     1         /tmp/kernel-ec7755.o:(.riscv.attributes)
+       0        0       2b     1         /tmp/kernel-843acd.o:(.riscv.attributes)
        0        0      1cc     4 .debug_frame
-       0        0      148     4         /tmp/kernel-ec7755.o:(.debug_frame)
+       0        0      148     4         /tmp/kernel-843acd.o:(.debug_frame)
        0        0        0     1                 
-     148      148       84     4         /tmp/common-0fe5df.o:(.debug_frame)
+     148      148       84     4         /tmp/common-3b304d.o:(.debug_frame)
      148      148        0     1                 
        0        0      d9c     1 .debug_line
-       0        0      93c     1         /tmp/kernel-ec7755.o:(.debug_line)
+       0        0      93c     1         /tmp/kernel-843acd.o:(.debug_line)
        0        0        0     1                 .Lline_table_start0
-     93c      93c      460     1         /tmp/common-0fe5df.o:(.debug_line)
+     93c      93c      460     1         /tmp/common-3b304d.o:(.debug_line)
      93c      93c        0     1                 .Lline_table_start0
        0        0       39     1 .debug_line_str
        0        0       39     1         <internal>:(.debug_line_str)

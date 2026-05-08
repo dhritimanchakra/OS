@@ -9,6 +9,7 @@ typedef uint32_t size_t;
 typedef uint32_t paddr_t;
 typedef uint32_t vaddr_t;
 #define SYS_PUTCHAR 1
+#define SYS_GETCHAR 2
 #define PAGE_SIZE 4096
 
 #define true 1

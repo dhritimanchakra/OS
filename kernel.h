@@ -3,7 +3,10 @@
 
 #define SCAUSE_ECALL 8
 
-#define USER_BASE 0x100000000
+#define USER_STACK_TOP 0x80000000
+#define SYS_PUTCHAR 1
+
+#define USER_BASE 0x1000000
 #define SATP_SV32   (1u << 31)
 #define PAGE_SIZE   4096
 #define PAGE_V      (1 << 0)

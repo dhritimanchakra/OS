@@ -4,6 +4,9 @@ typedef unsigned char uint8_t;
 typedef unsigned int uint32_t;
 typedef uint32_t size_t;
 
+long getchar(void);
+void yield(void);
+
 extern char __bss[], __bss_end[], __stack_top[];
 extern char __free_ram[], __free_ram_end[];
 extern char __kernel_base[];
@@ -47,6 +50,16 @@ void putchar(char ch) {
 
 void handle_syscall(struct trap_frame *f) {
     switch (f->a3) {
+        case SYS_GETCHAR:
+        while(1){
+            long ch=getchar();
+            if(ch>=0){
+                f->a0=ch;
+                break;
+            }
+            yield();
+        }
+        break;
         case SYS_PUTCHAR:
             putchar(f->a0);
             break;
@@ -55,7 +68,6 @@ void handle_syscall(struct trap_frame *f) {
     }
 }
 
-/* Single definition of handle_trap */
 void handle_trap(struct trap_frame *f) {
     uint32_t scause  = READ_CSR(scause);
     uint32_t stval   = READ_CSR(stval);
@@ -65,13 +77,17 @@ void handle_trap(struct trap_frame *f) {
         handle_syscall(f);
         user_pc += 4;
     } else {
-        PANIC("unexpected trap scause=%x, stval=%x, sepc=%x\n",
-              scause, stval, user_pc);
+        PANIC("unexpected trap scause=%x, stval=%x, sepc=%x\n",scause, stval, user_pc);
     }
 
     WRITE_CSR(sepc, user_pc);
 }
 
+
+long getchar(void){
+    struct sbiret ret=sbi_call(0,0,0,0,0,0,0,2);
+    return ret.error;
+}
 /* ------------------------------------------------------------------ */
 /*  Kernel entry (trap vector)                                         */
 /* ------------------------------------------------------------------ */
@@ -80,7 +96,11 @@ __attribute__((naked))
 __attribute__((aligned(4)))
 void kernel_entry(void) {
     __asm__ __volatile__(
-        "csrw sscratch, sp\n"
+        /* Atomically swap sp and sscratch.
+         * On entry from user mode, sscratch holds the kernel stack top
+         * (set by yield via "csrw sscratch, <kernel stack>").
+         * After this swap: sp = kernel stack, sscratch = user sp.        */
+        "csrrw sp, sscratch, sp\n"
         "addi sp, sp, -4 * 31\n"
         "sw ra,  4 * 0(sp)\n"
         "sw gp,  4 * 1(sp)\n"
@@ -112,6 +132,7 @@ void kernel_entry(void) {
         "sw s9,  4 * 27(sp)\n"
         "sw s10, 4 * 28(sp)\n"
         "sw s11, 4 * 29(sp)\n"
+        /* sscratch now holds the user sp; save it into slot 30 */
         "csrr a0, sscratch\n"
         "sw a0,  4 * 30(sp)\n"
         "mv a0, sp\n"
@@ -275,7 +296,7 @@ struct process *create_process(const void *image, size_t image_size) {
         size_t remaining = image_size - off;
         size_t copy_size = (PAGE_SIZE <= remaining) ? PAGE_SIZE : remaining;
         memcpy((void *) page, image + off, copy_size);
-        map_page(page_table, USER_BASE + off, page, PAGE_R | PAGE_W | PAGE_X); /* fixed: added ; */
+        map_page(page_table, USER_BASE + off, page, PAGE_R | PAGE_W | PAGE_X | PAGE_U);
     }
 
     proc->pid        = i + 1;

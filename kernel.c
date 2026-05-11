@@ -211,10 +211,12 @@ __attribute__((naked)) void user_entry(void) {
     __asm__ __volatile__(
         "csrw sepc, %[sepc]        \n"
         "csrw sstatus, %[sstatus]  \n"
+        "mv sp, %[sp]              \n"
         "sret                      \n"
         :
         : [sepc]    "r" (USER_BASE),
-          [sstatus] "r" (SSTATUS_SPIE)
+          [sstatus] "r" (SSTATUS_SPIE),
+          [sp]      "r" (USER_STACK_TOP)
     );
 }
 
@@ -255,7 +257,6 @@ __attribute__((naked)) void switch_context(uint32_t *prev_sp, uint32_t *next_sp)
 }
 
 struct process procs[PROCS_MAX];
-
 struct process *create_process(const void *image, size_t image_size) {
     struct process *proc = NULL;
     int i;
@@ -284,13 +285,9 @@ struct process *create_process(const void *image, size_t image_size) {
     *--sp = (uint32_t) user_entry;      // ra
 
     uint32_t *page_table = (uint32_t *) alloc_pages(1);
-
-    /* Map kernel pages */
     for (paddr_t paddr = (paddr_t) __kernel_base;
          paddr < (paddr_t) __free_ram_end; paddr += PAGE_SIZE)
         map_page(page_table, paddr, paddr, PAGE_R | PAGE_W | PAGE_X);
-
-    /* Map user image pages */
     for (uint32_t off = 0; off < image_size; off += PAGE_SIZE) {
         paddr_t page     = alloc_pages(1);
         size_t remaining = image_size - off;
@@ -298,6 +295,8 @@ struct process *create_process(const void *image, size_t image_size) {
         memcpy((void *) page, image + off, copy_size);
         map_page(page_table, USER_BASE + off, page, PAGE_R | PAGE_W | PAGE_X | PAGE_U);
     }
+    paddr_t user_stack = alloc_pages(1);
+    map_page(page_table, USER_STACK_TOP - PAGE_SIZE, user_stack, PAGE_R | PAGE_W | PAGE_U);
 
     proc->pid        = i + 1;
     proc->state      = PROC_RUNNABLE;

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -xue
 
-QEMU=qemu-system-riscv32
+QEMU=/home/linuxbrew/.linuxbrew/Cellar/qemu/10.2.2/bin/qemu-system-riscv32
 CC=clang
 OBJCOPY=llvm-objcopy  # or: $(llvm-config --bindir)/llvm-objcopy
 

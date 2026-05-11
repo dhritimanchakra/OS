@@ -5,6 +5,7 @@
 
 #define USER_STACK_TOP 0x80000000
 #define SYS_PUTCHAR 1
+#define SYS_GETCHAR 2
 
 #define USER_BASE 0x1000000
 #define SATP_SV32   (1u << 31)

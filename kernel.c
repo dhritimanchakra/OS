@@ -1,8 +1,5 @@
 #include "kernel.h"
 
-typedef unsigned char uint8_t;
-typedef unsigned int uint32_t;
-typedef uint32_t size_t;
 
 long getchar(void);
 void yield(void);
@@ -96,10 +93,7 @@ __attribute__((naked))
 __attribute__((aligned(4)))
 void kernel_entry(void) {
     __asm__ __volatile__(
-        /* Atomically swap sp and sscratch.
-         * On entry from user mode, sscratch holds the kernel stack top
-         * (set by yield via "csrw sscratch, <kernel stack>").
-         * After this swap: sp = kernel stack, sscratch = user sp.        */
+       
         "csrrw sp, sscratch, sp\n"
         "addi sp, sp, -4 * 31\n"
         "sw ra,  4 * 0(sp)\n"
@@ -132,7 +126,6 @@ void kernel_entry(void) {
         "sw s9,  4 * 27(sp)\n"
         "sw s10, 4 * 28(sp)\n"
         "sw s11, 4 * 29(sp)\n"
-        /* sscratch now holds the user sp; save it into slot 30 */
         "csrr a0, sscratch\n"
         "sw a0,  4 * 30(sp)\n"
         "mv a0, sp\n"

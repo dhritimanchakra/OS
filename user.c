@@ -7,8 +7,11 @@ int syscall(int sysno, int arg0, int arg1, int arg2);
 __attribute__((noreturn)) void exit(void);
 
 __attribute__((noreturn)) void exit(void) {
+    syscall(SYS_EXIT,0,0,0);
     for (;;);
 }
+
+
 
 void putchar(char ch) {
     syscall(SYS_PUTCHAR, ch, 0, 0);

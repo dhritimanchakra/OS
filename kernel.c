@@ -7,7 +7,8 @@ void yield(void);
 extern char __bss[], __bss_end[], __stack_top[];
 extern char __free_ram[], __free_ram_end[];
 extern char __kernel_base[];
-
+struct process *current_proc;
+struct process *idle_proc;
 extern char _binary_shell_bin_start[], _binary_shell_bin_size[];
 
 /* Forward declarations */
@@ -60,6 +61,12 @@ void handle_syscall(struct trap_frame *f) {
         case SYS_PUTCHAR:
             putchar(f->a0);
             break;
+        case SYS_EXIT:
+            printf("process %d exited\n",current_proc->pid);
+            current_proc->state=PROC_EXITED;
+            yield();
+            PANIC("unreachable");
+            
         default:
             PANIC("unexpected syscall a3=%x\n", f->a3);
     }

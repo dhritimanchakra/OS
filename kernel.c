@@ -124,10 +124,16 @@ void kernel_entry(void) {
         "sw s9,  4 * 27(sp)\n"
         "sw s10, 4 * 28(sp)\n"
         "sw s11, 4 * 29(sp)\n"
+
         "csrr a0, sscratch\n"
         "sw a0,  4 * 30(sp)\n"
+
+        "addi a0, sp, 4 * 31\n"
+        "csrw sscratch, a0\n"
+
         "mv a0, sp\n"
         "call handle_trap\n"
+
         "lw ra,  4 * 0(sp)\n"
         "lw gp,  4 * 1(sp)\n"
         "lw tp,  4 * 2(sp)\n"
@@ -158,13 +164,10 @@ void kernel_entry(void) {
         "lw s9,  4 * 27(sp)\n"
         "lw s10, 4 * 28(sp)\n"
         "lw s11, 4 * 29(sp)\n"
-        "lw a0,  4 * 30(sp)\n" // Load the saved user SP into a0 
-        "csrw sscratch, sp\n" // Save the kernel SP (current sp) back into sscratch 
-        "mv sp, a0\n"         // Restore the user SP 
+        "lw sp,  4 * 30(sp)\n"
         "sret\n"
     );
 }
-
 
 /* ------------------------------------------------------------------ */
 /*  Memory                                                             */

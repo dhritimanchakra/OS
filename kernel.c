@@ -88,12 +88,10 @@ long getchar(void){
 /* ------------------------------------------------------------------ */
 /*  Kernel entry (trap vector)                                         */
 /* ------------------------------------------------------------------ */
-
 __attribute__((naked))
 __attribute__((aligned(4)))
 void kernel_entry(void) {
     __asm__ __volatile__(
-       
         "csrrw sp, sscratch, sp\n"
         "addi sp, sp, -4 * 31\n"
         "sw ra,  4 * 0(sp)\n"
@@ -160,10 +158,13 @@ void kernel_entry(void) {
         "lw s9,  4 * 27(sp)\n"
         "lw s10, 4 * 28(sp)\n"
         "lw s11, 4 * 29(sp)\n"
-        "lw sp,  4 * 30(sp)\n"
+        "lw a0,  4 * 30(sp)\n" // Load the saved user SP into a0 
+        "csrw sscratch, sp\n" // Save the kernel SP (current sp) back into sscratch 
+        "mv sp, a0\n"         // Restore the user SP 
         "sret\n"
     );
 }
+
 
 /* ------------------------------------------------------------------ */
 /*  Memory                                                             */

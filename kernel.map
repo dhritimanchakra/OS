@@ -2,7 +2,7 @@
        0        0 80200000     1 . = 0x80200000
 80200000        0        0     1 __kernel_base = .
 80200000 80200000      c62  4096 .text
-80200000 80200000        e     2         /tmp/kernel-8a1574.o:(.text.boot)
+80200000 80200000        e     2         /tmp/kernel-8562b7.o:(.text.boot)
 80200000 80200000        0     1                 
 80200000 80200000        0     1                 
 80200000 80200000        0     1                 
@@ -10,7 +10,7 @@
 80200000 80200000        e     1                 boot
 8020000e 8020000e        0     1                 
 8020000e 8020000e        0     1                 
-80200010 80200010      9c8     4         /tmp/kernel-8a1574.o:(.text)
+80200010 80200010      9c8     4         /tmp/kernel-8562b7.o:(.text)
 80200010 80200010        0     1                 
 80200010 80200010        0     1                 
 80200010 80200010        0     1                 
@@ -451,7 +451,7 @@
 802009d6 802009d6        0     1                 
 802009d8 802009d8        0     1                 
 802009d8 802009d8        0     1                 
-802009d8 802009d8      28a     4         /tmp/common-d80ffe.o:(.text)
+802009d8 802009d8      28a     4         /tmp/common-e53a6e.o:(.text)
 802009d8 802009d8        0     1                 
 802009d8 802009d8        0     1                 
 802009d8 802009d8        0     1                 
@@ -621,18 +621,18 @@
 80200c62 80200c62        0     1                 
 80201000 80201000      16e  4096 .rodata
 80201000 80201000      16e     1         <internal>:(.rodata)
-80202000 80202000    10450  4096 .data
-80202000 80202000    10450     1         shell.bin.o:(.data)
+80202000 80202000    10420  4096 .data
+80202000 80202000    10420     1         shell.bin.o:(.data)
 80202000 80202000        0     1                 _binary_shell_bin_start
-80212450 80212450        0     1                 _binary_shell_bin_end
-80212450 80212450        4     4 .sdata
-80212450 80212450        4     4         /tmp/kernel-8a1574.o:(.sdata)
-80212450 80212450        4     1                 alloc_pages.next_paddr
+80212420 80212420        0     1                 _binary_shell_bin_end
+80212420 80212420        4     4 .sdata
+80212420 80212420        4     4         /tmp/kernel-8562b7.o:(.sdata)
+80212420 80212420        4     1                 alloc_pages.next_paddr
 80213000 80213000    10088  4096 .bss
 80213000 80213000        0     1         __bss = .
-80213000 80213000    10080     4         /tmp/kernel-8a1574.o:(.bss)
+80213000 80213000    10080     4         /tmp/kernel-8562b7.o:(.bss)
 80213000 80213000    10080     1                 procs
-80223080 80223080        8     4         /tmp/kernel-8a1574.o:(.sbss)
+80223080 80223080        8     4         /tmp/kernel-8562b7.o:(.sbss)
 80223080 80223080        4     1                 idle_proc
 80223084 80223084        4     1                 current_proc
 80223088 80223088        0     1         __bss_end = .
@@ -644,46 +644,46 @@
 80244000 80244000  4000000     1 . += 64 * 1024 * 1024
 84244000 84244000        0     1 __free_ram_end = .
        0        0      827     1 .debug_loclists
-       0        0      5dd     1         /tmp/kernel-8a1574.o:(.debug_loclists)
+       0        0      5dd     1         /tmp/kernel-8562b7.o:(.debug_loclists)
        c        c        0     1                 
-     5dd      5dd      24a     1         /tmp/common-d80ffe.o:(.debug_loclists)
+     5dd      5dd      24a     1         /tmp/common-e53a6e.o:(.debug_loclists)
      5e9      5e9        0     1                 
        0        0      3b1     1 .debug_abbrev
-       0        0      2ac     1         /tmp/kernel-8a1574.o:(.debug_abbrev)
-     2ac      2ac      105     1         /tmp/common-d80ffe.o:(.debug_abbrev)
+       0        0      2ac     1         /tmp/kernel-8562b7.o:(.debug_abbrev)
+     2ac      2ac      105     1         /tmp/common-e53a6e.o:(.debug_abbrev)
        0        0      bb7     1 .debug_info
-       0        0      996     1         /tmp/kernel-8a1574.o:(.debug_info)
-     996      996      221     1         /tmp/common-d80ffe.o:(.debug_info)
+       0        0      996     1         /tmp/kernel-8562b7.o:(.debug_info)
+     996      996      221     1         /tmp/common-e53a6e.o:(.debug_info)
        0        0       cb     1 .debug_rnglists
-       0        0       b0     1         /tmp/kernel-8a1574.o:(.debug_rnglists)
+       0        0       b0     1         /tmp/kernel-8562b7.o:(.debug_rnglists)
        c        c        0     1                 
-      b0       b0       1b     1         /tmp/common-d80ffe.o:(.debug_rnglists)
+      b0       b0       1b     1         /tmp/common-e53a6e.o:(.debug_rnglists)
       bc       bc        0     1                 
        0        0      25c     1 .debug_str_offsets
-       0        0      1c8     1         /tmp/kernel-8a1574.o:(.debug_str_offsets)
+       0        0      1c8     1         /tmp/kernel-8562b7.o:(.debug_str_offsets)
        8        8        0     1                 
-     1c8      1c8       94     1         /tmp/common-d80ffe.o:(.debug_str_offsets)
+     1c8      1c8       94     1         /tmp/common-e53a6e.o:(.debug_str_offsets)
      1d0      1d0        0     1                 
        0        0      35b     1 .debug_str
        0        0      35b     1         <internal>:(.debug_str)
        0        0      154     1 .debug_addr
-       0        0       f8     1         /tmp/kernel-8a1574.o:(.debug_addr)
+       0        0       f8     1         /tmp/kernel-8562b7.o:(.debug_addr)
        8        8        0     1                 
-      f8       f8       5c     1         /tmp/common-d80ffe.o:(.debug_addr)
+      f8       f8       5c     1         /tmp/common-e53a6e.o:(.debug_addr)
      100      100        0     1                 
        0        0       42     1 .comment
        0        0       42     1         <internal>:(.comment)
        0        0       2b     1 .riscv.attributes
-       0        0       2b     1         /tmp/kernel-8a1574.o:(.riscv.attributes)
+       0        0       2b     1         /tmp/kernel-8562b7.o:(.riscv.attributes)
        0        0      1dc     4 .debug_frame
-       0        0      158     4         /tmp/kernel-8a1574.o:(.debug_frame)
+       0        0      158     4         /tmp/kernel-8562b7.o:(.debug_frame)
        0        0        0     1                 
-     158      158       84     4         /tmp/common-d80ffe.o:(.debug_frame)
+     158      158       84     4         /tmp/common-e53a6e.o:(.debug_frame)
      158      158        0     1                 
        0        0      ed2     1 .debug_line
-       0        0      a72     1         /tmp/kernel-8a1574.o:(.debug_line)
+       0        0      a72     1         /tmp/kernel-8562b7.o:(.debug_line)
        0        0        0     1                 .Lline_table_start0
-     a72      a72      460     1         /tmp/common-d80ffe.o:(.debug_line)
+     a72      a72      460     1         /tmp/common-e53a6e.o:(.debug_line)
      a72      a72        0     1                 .Lline_table_start0
        0        0       39     1 .debug_line_str
        0        0       39     1         <internal>:(.debug_line_str)

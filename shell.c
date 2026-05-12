@@ -5,15 +5,14 @@ void main(void) {
     while (1) {
 prompt:
         printf("> ");
-        
         char cmdline[128];
-        for (int i = 0; ; i++) {
+        for (int i = 0;; i++) {
             char ch = getchar();
             putchar(ch);
             if (i == sizeof(cmdline) - 1) {
                 printf("command line too long\n");
                 goto prompt;
-            } else if (ch == '\r') {
+            } else if (ch == '\r' || ch == '\n') {
                 printf("\n");
                 cmdline[i] = '\0';
                 break;
@@ -23,9 +22,7 @@ prompt:
         }
 
         if (strcmp(cmdline, "hello") == 0)
-            printf("Hello world from the shell\n");
-        else if (strcmp(cmdline, "exit") == 0)
-            exit();
+            printf("Hello world from shell!\n");
         else
             printf("unknown command: %s\n", cmdline);
     }

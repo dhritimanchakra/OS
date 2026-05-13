@@ -92,6 +92,21 @@ long getchar(void){
     struct sbiret ret=sbi_call(0,0,0,0,0,0,0,2);
     return ret.error;
 }
+
+
+uint32_t virtio_reg_read32(unsigend offset){
+    return *((volatile uint32_t *)(VIRTIO_BLK_PADDR+offset));
+}
+uint64_t virtio_reg_read64(unsigned offset){
+
+    return *((volatile uint64_t *)(VIRTIO_BLK_PADDR+offset));
+}
+void virtio_reg_write32(unsigned offset,uint32_t value){
+    *((volatile uint32_t *)(VIRTIO_BLK_PADDR+offset))=value;
+}
+void virtio_reg_fetch_and_or32(unsiged offset,uint32_t value){
+    virtio_reg_write32(offset,virtio_reg_read32(offset)|value);
+}
 /* ------------------------------------------------------------------ */
 /*  Kernel entry (trap vector)                                         */
 /* ------------------------------------------------------------------ */

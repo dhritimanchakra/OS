@@ -42,6 +42,13 @@ void putchar(char ch) {
     sbi_call(ch, 0, 0, 0, 0, 0, 0, 1);
 }
 
+struct virtio_virtq *blk_request_vq;
+struct virtio_blk_req *blk_req;
+paddr_t blk_req_paddr;
+uint64_t blk_capacity;
+
+
+
 /* ------------------------------------------------------------------ */
 /*  Trap / syscall handling                                            */
 /* ------------------------------------------------------------------ */
@@ -106,6 +113,26 @@ void virtio_reg_write32(unsigned offset,uint32_t value){
 }
 void virtio_reg_fetch_and_or32(unsiged offset,uint32_t value){
     virtio_reg_write32(offset,virtio_reg_read32(offset)|value);
+}
+
+void virtio_blk_init(void){
+    if(virtio_reg_read32(VIRTIO_REG_MAGIC)!=0x74726976){
+        PANIC("virtio:invalid magic valaue");
+    }
+    if (virtio_reg_read32(VIRTIO_REG_VERSION) != 1)
+        PANIC("virtio: invalid version");
+    if (virtio_reg_read32(VIRTIO_REG_DEVICE_ID) != VIRTIO_DEVICE_BLK)
+        PANIC("virtio: invalid device id");
+    virtio_reg_write32(VIRTIO_REG_DEVICE_STATUS,0);
+    virtio_reg_fetch_and_or32(VIRTIO_REG_DEVICE_STATUS,VIRITIO_STATUS_ACK);
+    virtio_reg_fetch_and_or32(VIRTIO_REG_DEVICE_STATUS,VIRTIO_STATUS_DRIVER);
+    virtio_reg_write32(VIRTIO_REG_PAGE_SIZE,PAGE_SIZE);
+    blk_request_vq=virtq_init(0);
+    virtio_reg_write32(VIRTIO_REG_DEVICE_STATUS,VIRTIO_STATUS_OK);
+    blk_capacity=virtio_req_read64(VIRTIO_REG_DEVICE_CONFIG+0)*SECTOR_SIZE;
+    printf("virtio-blk: capacity is %d bytes\n", (int)blk_capacity);
+    blk_req_paddr = alloc_pages(align_up(sizeof(*blk_req), PAGE_SIZE) / PAGE_SIZE);
+    blk_req = (struct virtio_blk_req *) blk_req_paddr;
 }
 /* ------------------------------------------------------------------ */
 /*  Kernel entry (trap vector)                                         */
@@ -307,6 +334,7 @@ struct process *create_process(const void *image, size_t image_size) {
     for (paddr_t paddr = (paddr_t) __kernel_base;
          paddr < (paddr_t) __free_ram_end; paddr += PAGE_SIZE)
         map_page(page_table, paddr, paddr, PAGE_R | PAGE_W | PAGE_X);
+    map_page(page_table,VIRTIO_BLK_PADDR,VIRTIO_BLK_PADDR,PAGE_R|PAGE_W);
     for (uint32_t off = 0; off < image_size; off += PAGE_SIZE) {
         paddr_t page     = alloc_pages(1);
         size_t remaining = image_size - off;
@@ -374,6 +402,8 @@ void kernel_main(void) {
     printf("1 + 2 = %d, %x\n", 1 + 2, 0x1234abcd);
 
     WRITE_CSR(stvec, (uint32_t) kernel_entry);
+    virtio_blk_init();
+
 
     idle_proc        = create_process(NULL, 0);
     idle_proc->pid   = 0;

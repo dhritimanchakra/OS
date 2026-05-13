@@ -1,8 +1,12 @@
 #include "kernel.h"
 
-
+void virtio_reg_write32(unsigned offset, uint32_t value);
 long getchar(void);
 void yield(void);
+void putchar(char ch);
+void handle_trap(struct trap_frame *f);
+paddr_t alloc_pages(uint32_t n);         
+struct virtio_virtq *virtq_init(uint32_t index);  
 
 extern char __bss[], __bss_end[], __stack_top[];
 extern char __free_ram[], __free_ram_end[];
@@ -53,6 +57,18 @@ uint64_t blk_capacity;
 /*  Trap / syscall handling                                            */
 /* ------------------------------------------------------------------ */
 
+
+struct virtio_virtq *virtq_init(unsigned index){
+    paddr_t virtq_paddr=alloc_pages(align_up(sizeof(struct virtio_virtq),PAGE_SIZE)/PAGE_SIZE);
+    struct virtio_virtq *vq=(struct virtio_virtq *)virtq_paddr;
+    vq->queue_index=index;
+    vq->used_index=(volatile uint16_t *)&vq->used.index;
+    virtio_reg_write32(VIRTIO_REG_QUEUE_SEL,index);
+    virtio_reg_write32(VIRTIO_REG_QUEUE_NUM,VIRTQ_ENTRY_NUM);
+    virtio_reg_write32(VIRTIO_REG_QUEUE_PFN,virtq_paddr/PAGE_SIZE);
+    return vq;
+}
+
 void handle_syscall(struct trap_frame *f) {
     switch (f->a3) {
         case SYS_GETCHAR:
@@ -101,7 +117,7 @@ long getchar(void){
 }
 
 
-uint32_t virtio_reg_read32(unsigend offset){
+uint32_t virtio_reg_read32(unsigned offset){
     return *((volatile uint32_t *)(VIRTIO_BLK_PADDR+offset));
 }
 uint64_t virtio_reg_read64(unsigned offset){
@@ -111,7 +127,7 @@ uint64_t virtio_reg_read64(unsigned offset){
 void virtio_reg_write32(unsigned offset,uint32_t value){
     *((volatile uint32_t *)(VIRTIO_BLK_PADDR+offset))=value;
 }
-void virtio_reg_fetch_and_or32(unsiged offset,uint32_t value){
+void virtio_reg_fetch_and_or32(unsigned offset,uint32_t value){
     virtio_reg_write32(offset,virtio_reg_read32(offset)|value);
 }
 
@@ -124,12 +140,12 @@ void virtio_blk_init(void){
     if (virtio_reg_read32(VIRTIO_REG_DEVICE_ID) != VIRTIO_DEVICE_BLK)
         PANIC("virtio: invalid device id");
     virtio_reg_write32(VIRTIO_REG_DEVICE_STATUS,0);
-    virtio_reg_fetch_and_or32(VIRTIO_REG_DEVICE_STATUS,VIRITIO_STATUS_ACK);
+    virtio_reg_fetch_and_or32(VIRTIO_REG_DEVICE_STATUS, VIRTIO_STATUS_ACK);
     virtio_reg_fetch_and_or32(VIRTIO_REG_DEVICE_STATUS,VIRTIO_STATUS_DRIVER);
     virtio_reg_write32(VIRTIO_REG_PAGE_SIZE,PAGE_SIZE);
     blk_request_vq=virtq_init(0);
     virtio_reg_write32(VIRTIO_REG_DEVICE_STATUS,VIRTIO_STATUS_OK);
-    blk_capacity=virtio_req_read64(VIRTIO_REG_DEVICE_CONFIG+0)*SECTOR_SIZE;
+    blk_capacity = virtio_reg_read64(VIRTIO_REG_DEVICE_CONFIG + 0) * SECTOR_SIZE;
     printf("virtio-blk: capacity is %d bytes\n", (int)blk_capacity);
     blk_req_paddr = alloc_pages(align_up(sizeof(*blk_req), PAGE_SIZE) / PAGE_SIZE);
     blk_req = (struct virtio_blk_req *) blk_req_paddr;

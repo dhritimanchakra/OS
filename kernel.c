@@ -70,7 +70,19 @@ struct virtio_virtq *virtq_init(unsigned index){
 }
 
 void virtq_kick(struct virtio_virtq *vq,int desc_index){
-    vq->avail.ring
+    vq->avail.ring[vq->avail.index%VIRTQ_ENTRY_NUM]=desc_index;
+    vq->avail.index++;
+    __sync_synchronize();
+    virtio_reg_write32(VIRTIO_REG_QUEUE_NOTIFY,vq->queue_index);
+    vq->last_used_index++;
+}
+bool virtq_is_busy(struct virtio_virtq *vq){
+    return vq->last_used_index!=*vq->used_index;
+
+}
+
+void read_write_disk(void *buf,unsigned sector,int is_write){
+    if(sector>=blk_capacity/SECTOR_SIZE)
 }
 
 void handle_syscall(struct trap_frame *f) {

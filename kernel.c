@@ -69,6 +69,10 @@ struct virtio_virtq *virtq_init(unsigned index){
     return vq;
 }
 
+void virtq_kick(struct virtio_virtq *vq,int desc_index){
+    vq->avail.ring
+}
+
 void handle_syscall(struct trap_frame *f) {
     switch (f->a3) {
         case SYS_GETCHAR:

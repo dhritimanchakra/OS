@@ -2,7 +2,7 @@
        0        0 80200000     1 . = 0x80200000
 80200000        0        0     1 __kernel_base = .
 80200000 80200000      f96  4096 .text
-80200000 80200000        e     2         /tmp/kernel-c7fd19.o:(.text.boot)
+80200000 80200000        e     2         /tmp/kernel-2bd0c8.o:(.text.boot)
 80200000 80200000        0     1                 
 80200000 80200000        0     1                 
 80200000 80200000        0     1                 
@@ -10,7 +10,7 @@
 80200000 80200000        e     1                 boot
 8020000e 8020000e        0     1                 
 8020000e 8020000e        0     1                 
-80200010 80200010      cfc     4         /tmp/kernel-c7fd19.o:(.text)
+80200010 80200010      cfc     4         /tmp/kernel-2bd0c8.o:(.text)
 80200010 80200010        0     1                 
 80200010 80200010        0     1                 
 80200010 80200010        0     1                 
@@ -661,7 +661,7 @@
 80200d0a 80200d0a        0     1                 
 80200d0c 80200d0c        0     1                 
 80200d0c 80200d0c        0     1                 
-80200d0c 80200d0c      28a     4         /tmp/common-5f70bc.o:(.text)
+80200d0c 80200d0c      28a     4         /tmp/common-54ddf7.o:(.text)
 80200d0c 80200d0c        0     1                 
 80200d0c 80200d0c        0     1                 
 80200d0c 80200d0c        0     1                 
@@ -836,18 +836,18 @@
 80202000 80202000        0     1                 _binary_shell_bin_start
 80212460 80212460        0     1                 _binary_shell_bin_end
 80212460 80212460        4     4 .sdata
-80212460 80212460        4     4         /tmp/kernel-c7fd19.o:(.sdata)
+80212460 80212460        4     4         /tmp/kernel-2bd0c8.o:(.sdata)
 80212460 80212460        4     1                 alloc_pages.next_paddr
 80213000 80213000    1009c  4096 .bss
 80213000 80213000        0     1         __bss = .
-80213000 80213000       1c     8         /tmp/kernel-c7fd19.o:(.sbss)
+80213000 80213000       1c     8         /tmp/kernel-2bd0c8.o:(.sbss)
 80213000 80213000        4     1                 current_proc
 80213004 80213004        4     1                 blk_request_vq
 80213008 80213008        8     1                 blk_capacity
 80213010 80213010        4     1                 blk_req_paddr
 80213014 80213014        4     1                 blk_req
 80213018 80213018        4     1                 idle_proc
-8021301c 8021301c    10080     4         /tmp/kernel-c7fd19.o:(.bss)
+8021301c 8021301c    10080     4         /tmp/kernel-2bd0c8.o:(.bss)
 8021301c 8021301c    10080     1                 procs
 8022309c 8022309c        0     1         __bss_end = .
 8022309c 8022309c      f64     1 . = ALIGN ( 4096 )
@@ -858,46 +858,46 @@
 80244000 80244000  4000000     1 . += 64 * 1024 * 1024
 84244000 84244000        0     1 __free_ram_end = .
        0        0      975     1 .debug_loclists
-       0        0      72b     1         /tmp/kernel-c7fd19.o:(.debug_loclists)
+       0        0      72b     1         /tmp/kernel-2bd0c8.o:(.debug_loclists)
        c        c        0     1                 
-     72b      72b      24a     1         /tmp/common-5f70bc.o:(.debug_loclists)
+     72b      72b      24a     1         /tmp/common-54ddf7.o:(.debug_loclists)
      737      737        0     1                 
        0        0      3fe     1 .debug_abbrev
-       0        0      2f9     1         /tmp/kernel-c7fd19.o:(.debug_abbrev)
-     2f9      2f9      105     1         /tmp/common-5f70bc.o:(.debug_abbrev)
+       0        0      2f9     1         /tmp/kernel-2bd0c8.o:(.debug_abbrev)
+     2f9      2f9      105     1         /tmp/common-54ddf7.o:(.debug_abbrev)
        0        0     117a     1 .debug_info
-       0        0      f59     1         /tmp/kernel-c7fd19.o:(.debug_info)
-     f59      f59      221     1         /tmp/common-5f70bc.o:(.debug_info)
+       0        0      f59     1         /tmp/kernel-2bd0c8.o:(.debug_info)
+     f59      f59      221     1         /tmp/common-54ddf7.o:(.debug_info)
        0        0       f3     1 .debug_rnglists
-       0        0       d8     1         /tmp/kernel-c7fd19.o:(.debug_rnglists)
+       0        0       d8     1         /tmp/kernel-2bd0c8.o:(.debug_rnglists)
        c        c        0     1                 
-      d8       d8       1b     1         /tmp/common-5f70bc.o:(.debug_rnglists)
+      d8       d8       1b     1         /tmp/common-54ddf7.o:(.debug_rnglists)
       e4       e4        0     1                 
        0        0      2f8     1 .debug_str_offsets
-       0        0      264     1         /tmp/kernel-c7fd19.o:(.debug_str_offsets)
+       0        0      264     1         /tmp/kernel-2bd0c8.o:(.debug_str_offsets)
        8        8        0     1                 
-     264      264       94     1         /tmp/common-5f70bc.o:(.debug_str_offsets)
+     264      264       94     1         /tmp/common-54ddf7.o:(.debug_str_offsets)
      26c      26c        0     1                 
        0        0      501     1 .debug_str
        0        0      501     1         <internal>:(.debug_str)
        0        0      214     1 .debug_addr
-       0        0      1b8     1         /tmp/kernel-c7fd19.o:(.debug_addr)
+       0        0      1b8     1         /tmp/kernel-2bd0c8.o:(.debug_addr)
        8        8        0     1                 
-     1b8      1b8       5c     1         /tmp/common-5f70bc.o:(.debug_addr)
+     1b8      1b8       5c     1         /tmp/common-54ddf7.o:(.debug_addr)
      1c0      1c0        0     1                 
        0        0       42     1 .comment
        0        0       42     1         <internal>:(.comment)
        0        0       2b     1 .riscv.attributes
-       0        0       2b     1         /tmp/kernel-c7fd19.o:(.riscv.attributes)
+       0        0       2b     1         /tmp/kernel-2bd0c8.o:(.riscv.attributes)
        0        0      258     4 .debug_frame
-       0        0      1d4     4         /tmp/kernel-c7fd19.o:(.debug_frame)
+       0        0      1d4     4         /tmp/kernel-2bd0c8.o:(.debug_frame)
        0        0        0     1                 
-     1d4      1d4       84     4         /tmp/common-5f70bc.o:(.debug_frame)
+     1d4      1d4       84     4         /tmp/common-54ddf7.o:(.debug_frame)
      1d4      1d4        0     1                 
        0        0     12d6     1 .debug_line
-       0        0      e76     1         /tmp/kernel-c7fd19.o:(.debug_line)
+       0        0      e76     1         /tmp/kernel-2bd0c8.o:(.debug_line)
        0        0        0     1                 .Lline_table_start0
-     e76      e76      460     1         /tmp/common-5f70bc.o:(.debug_line)
+     e76      e76      460     1         /tmp/common-54ddf7.o:(.debug_line)
      e76      e76        0     1                 .Lline_table_start0
        0        0       39     1 .debug_line_str
        0        0       39     1         <internal>:(.debug_line_str)

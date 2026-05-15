@@ -113,6 +113,9 @@ void read_write_disk(void *buf,unsigned sector,int is_write){
                sector, blk_req->status);
         return;
     }
+    if(!is_write){
+        memcpy(buf,blk_req->data,SECTOR_SIZE);
+    }
 }
 
 void handle_syscall(struct trap_frame *f) {
@@ -465,6 +468,12 @@ void kernel_main(void) {
 
     WRITE_CSR(stvec, (uint32_t) kernel_entry);
     virtio_blk_init();
+    char buf[SECTOR_SIZE];
+    read_write_disk(buf, 0, false /* read from the disk */);
+    printf("first sector: %s\n", buf);
+
+    strcpy(buf, "hello from kernel!!!\n");
+    read_write_disk(buf, 0, true /* write to the disk */);
 
 
     idle_proc        = create_process(NULL, 0);

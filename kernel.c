@@ -82,7 +82,24 @@ bool virtq_is_busy(struct virtio_virtq *vq){
 }
 
 void read_write_disk(void *buf,unsigned sector,int is_write){
-    if(sector>=blk_capacity/SECTOR_SIZE)
+    if(sector>=blk_capacity/SECTOR_SIZE){
+        printf("virtio: tried to read/write sector=%d,but capcity is %d\n",sector,blk_capacity/SECTOR_SIZE);
+        return;
+    }
+    blk_req->sector=sector;
+    blk_req->type=is_write?VIRTIO_BLK_T_OUT:VIRTIO_BLK_T_IN;
+    if(is_write){
+        memcpy(blk_req->data,buf,SECTOR_SIZE);
+    }
+    struct virtio_virtq *vq=blk_request_vq;
+    vq->descs[0].addr=blk_req_paddr;
+    vq->descs[0].len=sizeof(uint32_t)*2+sizeof(uint64_t);
+    vq->descs[0].flags=VIRTQ_DESC_F_NEXT;
+    vq->descs[0].next=1;
+    vq->descs[1].addr=blk_req_paddr+offset_of(struct virtio_blk_req,data);
+    vq->descs[1].len=SECTOR_SIZE;
+    vq->descs[1].flags=VIRTQ_DESC_F_NEXT | (is_write?0:VIRTQ_DESC_F_WRITE);
+    vq->descs[1].next=2;
 }
 
 void handle_syscall(struct trap_frame *f) {

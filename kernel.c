@@ -100,6 +100,19 @@ void read_write_disk(void *buf,unsigned sector,int is_write){
     vq->descs[1].len=SECTOR_SIZE;
     vq->descs[1].flags=VIRTQ_DESC_F_NEXT | (is_write?0:VIRTQ_DESC_F_WRITE);
     vq->descs[1].next=2;
+    vq->descs[2].addr=blk_req_paddr+offset_of(struct virtio_blk_req,status);
+    vq->descs[2].len=sizeof(uint8_t);
+    vq->descs[2].flags=VIRTQ_DESC_F_WRITE;
+    virtq_kick(vq,0);
+    while (virtq_is_busy(vq))
+        ;
+
+   
+    if (blk_req->status != 0) {
+        printf("virtio: warn: failed to read/write sector=%d status=%d\n",
+               sector, blk_req->status);
+        return;
+    }
 }
 
 void handle_syscall(struct trap_frame *f) {

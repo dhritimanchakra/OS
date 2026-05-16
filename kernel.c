@@ -474,6 +474,17 @@ void kernel_main(void) {
 
     strcpy(buf, "hello from kernel!!!\n");
     read_write_disk(buf, 0, true /* write to the disk */);
+    for (int i = 0; i < SECTOR_SIZE; i++) {
+        if (buf[i] == '\n') {
+            buf[i] = '\0';
+            break;
+        }
+    }
+    printf("first sector: %s\n", buf);
+ 
+    strcpy(buf, "hello from kernel!!!\n");
+    read_write_disk(buf, 0, true /* write to the disk */);
+
 
 
     idle_proc        = create_process(NULL, 0);

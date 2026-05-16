@@ -42,9 +42,41 @@
 #define PAGE_W      (1 << 2)
 #define PAGE_X      (1 << 3)
 #define PAGE_U      (1 << 4)
+#defnine FILES_MAX 2
+#define DISK_MAX_SIZE align_up(16 * 1024 * 1024, PAGE_SIZE)
+
 
 #define SSTATUS_SPIE (1 << 5)
 
+
+struct tar_header{
+    char name[100];
+    char mode[8];
+    char uid[8];
+    char gid[8];
+    char size[12];
+    char mtime[12];
+    char checksum[8];
+    char type;
+    char linkname[100];
+    char magic[6];
+    char version[2];
+    char uname[32];
+    char gname[32];
+    char devmajor[8];
+    char devminor[8];
+    char prefix[155];
+    char padding[12];
+    char data[[];
+]
+}__attribute__((packed));
+
+struct file{
+    bool in_use;
+    char name[100];
+    char data[1024];
+    size_t size;
+}
 struct sbiret {
     long error;
     long value;
